@@ -1,32 +1,26 @@
+INCLUDE Irvine32.inc  
+.data  
+;public asmfunc  
 
-
-INCLUDE Irvine32.inc
-.data
-;public asmfunc
-
-
-
-.code
-asmfunc PROC p1:DWORD, p2:DWORD
+.code  
+asmfunc PROC p1:DWORD, p2:DWORD  
     
-   mov esi,p1
-   mov edi,p2
+    mov esi,p1  
+    mov edi,p2  
+    mov ecx,10  
+    xor eax, eax 
 
-   mov ecx,10
+next:  
+    mov ebx,[esi]  
+    test ebx, 8000h   
+    jz skip         
+    add eax, ebx      
+    
+skip:  
+    add esi,4  
+    loop next  
 
- next:
-    mov eax,[esi]
-    test eax, 8000h
-    jz skip
-    mov eax,[edi]
-    add eax,1
-    mov [edi],eax
-
-
-skip:
-    add esi,4
-    loop next
-
-    ret
-asmfunc ENDP
+    mov [edi], eax   
+    ret  
+asmfunc ENDP  
 end
